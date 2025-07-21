@@ -89,7 +89,18 @@ Planned steps:
 
 ---
 
-## 🤖 Model Building (coming soon)
+## 🤖 Model Building 
+### 🔄 SMOTE (Synthetic Minority Over-sampling Technique)
+
+Due to high class imbalance (~95% non-stroke vs ~5% stroke), we applied **SMOTE** to oversample the minority class in the training set.
+
+#### 📈 Results After Applying SMOTE:
+- ✅ **Recall for stroke cases increased from 0.02 to 0.80** 🎯
+- 🎯 **F1-score for stroke class improved from 0.04 to 0.24**
+- ❗️ **Accuracy dropped from ~95% to ~75%**, but recall is prioritized in medical applications
+- ✅ More stroke cases correctly identified, improving model usefulness in real-world screening
+
+> SMOTE balances the dataset to help the model learn minority patterns better, which is **crucial in healthcare** where detecting rare cases is a priority.
 
 Model experiments will include:
 - Logistic Regression
