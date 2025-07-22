@@ -8,9 +8,10 @@ A machine learning project to predict the likelihood of stroke using health data
 - [Dataset](#-dataset)
 - [Exploratory Data Analysis](#-exploratory-data-analysis-eda)
 - [Smoking Status Analysis](#-stroke-distribution-by-smoking-status)
-- [Data Preprocessing](#-data-preprocessing-upcoming)
-- [Model Building](#-model-building-coming-soon)
-- [Deployment](#-deployment-later)
+- [Residence & Work Type Analysis](#-residence--work-type-analysis)
+- [Data Preprocessing](#-data-preprocessing)
+- [Model Building](#-model-building)
+- [Deployment](#-deployment)
 - [Folder Structure](#-folder-structure)
 - [Author](#-author)
 
@@ -28,116 +29,133 @@ A machine learning project to predict the likelihood of stroke using health data
 ## 📊 Exploratory Data Analysis (EDA)
 
 Initial steps involved:
-- Checking column types, missing values, and value counts
+- Checked column types, missing values, and value counts
 - Identified **201 missing values** in the `bmi` column
 - Detected significant **class imbalance** (~95% no stroke)
 - Created visualizations:
   - Stroke Count Distribution
-  - Stroke Distribution by Gender ✅
+  - Stroke Distribution by Gender
 
 ---
 
 ## 🚬 Stroke Distribution by Smoking Status
 
-This chart compares stroke prevalence across smoking categories:  
+Analyzed stroke prevalence across:  
 **"formerly smoked"**, **"never smoked"**, **"smokes"**, and **"unknown"**.
 
-### 🔍 Key Observations:
-- **"Never smoked"** group is the largest.
-- **"Formerly smoked"** has a **slightly higher proportion of stroke** cases.
-- **"Smokes"** group has surprisingly fewer strokes (could be due to age or other health behaviors).
-- **"Unknown"** category has notable stroke cases too.
+### 🔍 Observations:
+- **"Never smoked"** is the largest group.
+- **"Formerly smoked"** shows slightly higher stroke proportion.
+- **"Smokes"** has fewer stroke cases than expected.
+- **"Unknown"** still includes stroke cases.
 
-### 💡 Insight:
-Stroke cases appear in **all categories**, showing that smoking alone is not a definitive predictor. This reinforces that **stroke risk is multifactorial**.
-
----
-
-🏘️ Stroke Proportion by Residence Type
-
-This analysis explores whether living in a Rural or Urban area has any correlation with stroke occurrence.
-
-🔍 Key Observations:
-	•	Urban residents have a slightly higher stroke rate (~5.2%) compared to rural residents (~4.5%).
-	•	The difference is modest but could hint at urban lifestyle stressors or better access to healthcare and diagnosis in cities.
-
-💡 Insight:
-
-While the residence type does not drastically affect stroke likelihood, the slightly elevated urban rate is worth noting. It emphasizes the importance of considering environmental and socioeconomic factors in stroke risk analysis.
-
-------
-
-## 🏢 Stroke Proportion by Work Type
-
-This bar chart compares the proportion of stroke cases across various work types.
-
-### 🔍 Key Observations:
-- The **Self-employed** group has the **highest stroke proportion (~7.9%)**, making it the most at-risk category.
-- **Private** and **Govt_job** employees follow closely with ~5% stroke proportions.
-- The **children** category shows minimal stroke cases, as expected.
-- The **Never_worked** category has no reported stroke cases.
-
-### 💡 Insight:
-Self-employed individuals may face greater stress, irregular routines, or less access to healthcare, possibly contributing to a higher risk of stroke. This highlights the importance of examining occupational health risks in stroke prevention.
-
-## 🧼 Data Preprocessing (upcoming)
-
-Planned steps:
-- Impute missing `bmi` values
-- Encode categorical variables: `gender`, `work_type`, `smoking_status`, etc.
-- Scale numerical features: `age`, `avg_glucose_level`, `bmi`
+💡 **Insight**: Stroke risk spans across all smoking categories — confirming that **stroke is multifactorial**.
 
 ---
 
-## 🤖 Model Building 
-### 🔄 SMOTE (Synthetic Minority Over-sampling Technique)
+## 🏘️ Residence & Work Type Analysis
 
-Due to high class imbalance (~95% non-stroke vs ~5% stroke), we applied **SMOTE** to oversample the minority class in the training set.
+### 🏡 Residence Type:
+- **Urban stroke rate**: ~5.2%
+- **Rural stroke rate**: ~4.5%
+- 💡 Slightly higher in urban areas — possibly due to stress or better diagnosis access.
 
-#### 📈 Results After Applying SMOTE:
-- ✅ **Recall for stroke cases increased from 0.02 to 0.80** 🎯
-- 🎯 **F1-score for stroke class improved from 0.04 to 0.24**
-- ❗️ **Accuracy dropped from ~95% to ~75%**, but recall is prioritized in medical applications
-- ✅ More stroke cases correctly identified, improving model usefulness in real-world screening
-
-> SMOTE balances the dataset to help the model learn minority patterns better, which is **crucial in healthcare** where detecting rare cases is a priority.
-
-Model experiments will include:
-- Logistic Regression
-- Random Forest
-- SMOTE to address class imbalance
-
-Metrics to evaluate:
-- Accuracy, Precision, Recall, F1-Score
-- Confusion Matrix
+### 💼 Work Type:
+- **Self-employed**: Highest stroke proportion (~7.9%)
+- **Private/Govt jobs**: ~5%
+- **Children**: Minimal strokes
+- 💡 Self-employed individuals may experience more health risks due to irregular schedules or lack of access to care.
 
 ---
 
-## 🚀 Deployment (later)
+## 🧼 Data Preprocessing
+
+Steps completed:
+- ✅ Filled missing `bmi` values using median imputation
+- ✅ Encoded categorical variables using `pd.get_dummies`
+- ✅ Normalized numeric features with `StandardScaler`
+- ✅ Split dataset into train/test (80/20)
+
+---
+
+## 🤖 Model Building
+
+### ⚠️ Problem:
+- **Severe class imbalance** (~95% no-stroke vs ~5% stroke)
+- Baseline models had high accuracy but failed to detect stroke cases
+
+---
+
+### 🔄 SMOTE: Synthetic Minority Over-sampling Technique
+
+Used SMOTE to synthetically create more stroke samples in the training set.
+
+### ✅ Result:
+- Balanced training set: 50% stroke / 50% no-stroke
+- Enabled models to learn patterns in the minority class
+
+---
+
+### 📈 Model Comparison
+
+#### 🔹 Logistic Regression (with SMOTE)
+| Metric            | Value     |
+|-------------------|-----------|
+| Accuracy          | 74.85%    |
+| Recall (Stroke=1) | 0.80 ✅   |
+| Precision         | 0.14      |
+| F1-Score          | 0.24      |
+
+🎯 **Best for real-world screening** where false negatives are costly  
+✅ Recommended for healthcare settings
+
+---
+
+#### 🌲 Random Forest (with SMOTE)
+| Metric            | Value     |
+|-------------------|-----------|
+| Accuracy          | 91.78% ✅ |
+| Recall (Stroke=1) | 0.14 ❌   |
+| Precision         | 0.15      |
+| F1-Score          | 0.14      |
+
+⚠️ Prioritizes overall accuracy, but **misses most stroke cases**
+
+---
+
+### 🧠 Takeaway:
+- Random Forest has better accuracy
+- But **Logistic Regression is better for identifying stroke patients** — critical in healthcare
+
+---
+
+### 💾 Model Saving
+
+Final models were saved using `joblib`:
+```python
+joblib.dump(rf_smote, 'models/random_forest_stroke_model.joblib')
+joblib.dump(scaler, 'models/standard_scaler.joblib')
+
+🚀 Deployment (upcoming)
 
 A web application using Flask:
-- Predict stroke probability in real time
-- Hosted publicly via **Render** or **Azure**
+	•	Accepts user input (health parameters)
+	•	Predicts stroke probability in real time
+	•	Will be hosted on Render or Azure
 
----
-
-## 📂 Folder Structure
 project/
 │
 ├── data/                  # Raw dataset
-├── notebooks/             # Jupyter/Colab notebooks
-├── scripts/               # Data preprocessing and ML scripts
-├── templates/             # HTML templates for the web app
-├── models/                # Saved models (joblib/pickle)
-├── app.py                 # Flask application
-├── README.md              # Project documentation
-└── requirements.txt       # Project dependencies
+├── notebooks/             # EDA and modeling notebooks
+├── scripts/               # Preprocessing and training scripts
+├── templates/             # HTML templates for Flask app
+├── models/                # Saved .joblib models
+├── app.py                 # Flask backend
+├── README.md              # Project summary and documentation
+└── requirements.txt       # Python dependencies
 
----
+👤 Author
 
-
-## 👤 Author
-
-**Vivek Raghu**  
-[LinkedIn](https://www.linkedin.com/in/raghuvivek/)  
-GitHub: [vivekr25](https://github.com/vivekr25)
+Vivek Raghunathan
+🔗 LinkedIn
+💻 GitHub: @vivekr25
