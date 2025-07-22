@@ -56,11 +56,9 @@ def predict():
     except Exception as e:
         return f"Error: {str(e)}"
 
-if __name__ == '__main__':
-    app.run(debug=True)
 
 import os
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # use Render's port if available
+    port = int(os.environ.get('PORT', 5000))  # Render uses this dynamic port
     app.run(debug=True, host='0.0.0.0', port=port)
