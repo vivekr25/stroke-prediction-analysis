@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import joblib
 import numpy as np
 import os
+import sys  # ✅ Added missing import
 
 # Initialize app
 app = Flask(__name__)
@@ -19,10 +20,9 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # DEBUG: Print form data
         print(request.form)
 
-        # Get input data from form
+        # Collect and convert input features
         features = [
             float(request.form['age']),
             int(request.form['hypertension']),
@@ -42,23 +42,27 @@ def predict():
             int(request.form['smoking_status_smokes']),
         ]
 
-        # DEBUGGING
         print("➡️ Feature List Length:", len(features))
         print("➡️ Features:", features)
+        sys.stdout.flush()  # ✅ Now works
+
+        # Scale features
+        input_data = scaler.transform([features])
+        
+        # Predict probability
+        prob = model.predict_proba(input_data)[0][1]
+        print(f"➡️ Predicted Probability of Stroke: {prob:.4f}")
         sys.stdout.flush()
 
-        # Scale and predict
-        input_data = scaler.transform([features])
-        prob = model.predict_proba(input_data)[0][1]  # Probability of stroke (class 1)
-        prediction = 1 if prob >= 0.3 else 0  # Custom threshold
+        # Custom threshold (e.g., 0.3 instead of 0.5)
+        result = "Stroke Risk ⚠️" if prob >= 0.3 else "No Stroke 😊"
 
-        result = f"Stroke Risk ⚠️ (Prob: {prob:.2f})" if prediction == 1 else f"No Stroke 😊 (Prob: {prob:.2f})"
         return render_template('index.html', prediction=result)
 
     except Exception as e:
         return f"Error: {str(e)}"
 
-# For Render deployment
+# Run the app
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # use Render's assigned port
+    port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
