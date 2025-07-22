@@ -208,6 +208,24 @@ project/
 - Pandas, NumPy, Matplotlib
 - Hosted on Render
 
+## 🎓 What I Learned
+
+This project deepened my understanding of real-world data science workflows, particularly in healthcare prediction problems. Key takeaways:
+
+- **End-to-End Pipeline:** I built a full ML pipeline from EDA → preprocessing → model training → deployment, reinforcing the importance of structure and iteration.
+
+- **Class Imbalance & SMOTE:** I learned how imbalanced datasets can lead to misleading model performance and how SMOTE can help improve recall — a critical metric in healthcare applications.
+
+- **Evaluation Trade-offs:** I understood how accuracy isn't always the best metric. In this case, **recall** was prioritized because missing a stroke case is more dangerous than a false positive.
+
+- **Model Deployment:** I implemented my first Flask app and deployed it using **Render**, gaining confidence in converting notebooks into usable applications.
+
+- **Git & Version Control:** Managed my project with Git and GitHub, learning to track experiments, sync changes, and maintain a clean structure.
+
+- **Communication:** Writing markdown summaries helped me practice translating technical insights into business-relevant language.
+
+This was more than just a machine learning task — it was a full-stack learning experience.
+
 👤 Author
 
 Vivek Raghunathan
