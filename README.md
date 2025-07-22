@@ -2,9 +2,8 @@
 
 A machine learning project to predict the likelihood of stroke using health data. This project showcases end-to-end data science skills from **EDA** to **deployment**, with a focus on real-world healthcare applications.
 
-🌐 Live App
-
-🎯 Try it now: Stroke Prediction Web App
+[![Live Demo](https://img.shields.io/badge/Live%20App-Render-blue)](https://stroke-prediction-analysis.onrender.com/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Source%20Code-green)](https://github.com/vivekr25/stroke-prediction-analysis)
 
 Enter health information such as age, glucose level, BMI, etc., and get an instant stroke risk prediction using a machine learning model trained on real data.
 ---
@@ -157,6 +156,28 @@ The stroke prediction web app is live and can be accessed here:
 ⚙️ **Custom Threshold**
 Lowered the prediction threshold to `0.3` (from default `0.5`) to **prioritize recall** and catch more true stroke cases — important in healthcare where false negatives are riskier than false positives.
 
+### 📈 ROC-AUC Evaluation
+
+To further assess the model's ability to distinguish between stroke and non-stroke cases, we plotted the **Receiver Operating Characteristic (ROC) Curve** and calculated the **Area Under the Curve (AUC)**.
+
+#### ✅ Cross-validated AUC scores (on SMOTE-resampled training data):
+[0.9840, 0.9981, 0.9966, 0.9972, 0.9967]
+Mean AUC Score: 0.9945
+
+This high score indicates that the model is **very effective** at separating stroke from non-stroke classes in training, thanks to balanced resampling using **SMOTE**.
+
+#### 🧪 ROC Curve on Test Set:
+- **AUC = 0.76**
+- Shows solid performance on unseen data.
+- While lower than the training score (as expected), it still reflects **meaningful predictive power** in identifying stroke risks.
+
+> ℹ️ **Why AUC drops on test data**: SMOTE balances only the training data. The test set retains the original class imbalance, making it harder to predict stroke cases. This drop is natural and reflects real-world conditions.
+
+ROC Curve :
+
+<img src="notebooks/roc_curve.png" width="500"/>
+
+
 project/
 │
 ├── data/                  # Raw dataset
@@ -167,6 +188,25 @@ project/
 ├── app.py                 # Flask backend
 ├── README.md              # Project summary and documentation
 └── requirements.txt       # Python dependencies
+
+---
+
+## 🧪 How to Use
+
+1. Visit the [Live App](https://stroke-prediction-analysis.onrender.com/)
+2. Enter patient info into the form
+3. Submit to receive real-time stroke risk prediction (based on trained ML model)
+
+---
+
+## ⚙️ Tech Stack
+
+- Python 3.11
+- Flask
+- Scikit-learn
+- SMOTE (Imbalanced-learn)
+- Pandas, NumPy, Matplotlib
+- Hosted on Render
 
 👤 Author
 
