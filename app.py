@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import joblib
 import numpy as np
+import os
 
 # Initialize app
 app = Flask(__name__)
@@ -41,24 +42,23 @@ def predict():
             int(request.form['smoking_status_smokes']),
         ]
 
-        # 🔍 DEBUGGING OUTPUT
+        # DEBUGGING
         print("➡️ Feature List Length:", len(features))
         print("➡️ Features:", features)
-        import sys; sys.stdout.flush()
+        sys.stdout.flush()
 
         # Scale and predict
         input_data = scaler.transform([features])
-        prediction = model.predict(input_data)[0]
-        result = "Stroke Risk ⚠️" if prediction == 1 else "No Stroke 😊"
+        prob = model.predict_proba(input_data)[0][1]  # Probability of stroke (class 1)
+        prediction = 1 if prob >= 0.3 else 0  # Custom threshold
 
+        result = f"Stroke Risk ⚠️ (Prob: {prob:.2f})" if prediction == 1 else f"No Stroke 😊 (Prob: {prob:.2f})"
         return render_template('index.html', prediction=result)
-    
+
     except Exception as e:
         return f"Error: {str(e)}"
 
-
-import os
-
+# For Render deployment
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Render uses this dynamic port
+    port = int(os.environ.get('PORT', 5000))  # use Render's assigned port
     app.run(debug=True, host='0.0.0.0', port=port)
