@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stroke Risk Predictor</title>
+</head>
+<body>
+    <h2>Stroke Risk Prediction</h2>
+    <form action="/predict" method="post">
+        <label>Age:</label><input type="number" name="age" step="any"><br><br>
+        <label>Hypertension (0 or 1):</label><input type="number" name="hypertension"><br><br>
+        <label>Heart Disease (0 or 1):</label><input type="number" name="heart_disease"><br><br>
+        <label>Avg Glucose Level:</label><input type="number" name="avg_glucose_level" step="any"><br><br>
+        <label>BMI:</label><input type="number" name="bmi" step="any"><br><br>
+
+        <!-- Encoded categorical fields -->
+        <label>Gender (Male=1, Female/Other=0):</label><input type="number" name="gender_Male"><br><br>
+        <label>Ever Married (Yes=1, No=0):</label><input type="number" name="ever_married_Yes"><br><br>
+        <label>Residence Type (Urban=1, Rural=0):</label><input type="number" name="Residence_type_Urban"><br><br>
+
+        <!-- Work Type (only 4 inputs shown here for simplicity) -->
+        <label>Work Type - Private:</label><input type="number" name="work_type_Private"><br><br>
+        <label>Work Type - Self-employed:</label><input type="number" name="work_type_Self-employed"><br><br>
+        <label>Work Type - Govt_job:</label><input type="number" name="work_type_Govt_job"><br><br>
+        <label>Work Type - children:</label><input type="number" name="work_type_children"><br><br>
+
+        <!-- Smoking Status -->
+        <label>Smoking - formerly smoked:</label><input type="number" name="smoking_status_formerly smoked"><br><br>
+        <label>Smoking - never smoked:</label><input type="number" name="smoking_status_never smoked"><br><br>
+        <label>Smoking - smokes:</label><input type="number" name="smoking_status_smokes"><br><br>
+
+        <input type="submit" value="Predict Stroke Risk">
+    </form>
+</body>
+</html>
