@@ -1,41 +1,113 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stroke Risk Predictor</title>
+    <title>🧠 Stroke Risk Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h2 {
+            color: #222;
+        }
+        label {
+            display: inline-block;
+            width: 250px;
+            font-weight: bold;
+        }
+        input, select {
+            margin-bottom: 12px;
+            padding: 6px;
+            width: 200px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .predict-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h2>Stroke Risk Prediction</h2>
+    <h2>🧠 Stroke Risk Prediction</h2>
+
     <form action="/predict" method="post">
-        <label>Age:</label><input type="number" name="age" step="any"><br><br>
-        <label>Hypertension (0 or 1):</label><input type="number" name="hypertension"><br><br>
-        <label>Heart Disease (0 or 1):</label><input type="number" name="heart_disease"><br><br>
-        <label>Avg Glucose Level:</label><input type="number" name="avg_glucose_level" step="any"><br><br>
-        <label>BMI:</label><input type="number" name="bmi" step="any"><br><br>
+        <div class="form-section">
+            <h3>Personal Information</h3>
+            <label>Age:</label><input type="number" name="age" step="any" required><br>
+            <label>BMI:</label><input type="number" name="bmi" step="any" required><br>
+            <label>Avg Glucose Level:</label><input type="number" name="avg_glucose_level" step="any" required><br>
+        </div>
 
-        <!-- Encoded categorical fields -->
-        <label>Gender - Male (1 or 0):</label><input type="number" name="gender_Male"><br><br>
-        <label>Gender - Other (1 or 0):</label><input type="number" name="gender_Other"><br><br>
-        <label>Ever Married - Yes (1 or 0):</label><input type="number" name="ever_married_Yes"><br><br>
+        <div class="form-section">
+            <h3>Medical History</h3>
+            <label>Hypertension:</label>
+            <select name="hypertension">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select><br>
 
-        <!-- Work Type -->
-        <label>Work Type - Never worked:</label><input type="number" name="work_type_Never_worked"><br><br>
-        <label>Work Type - Private:</label><input type="number" name="work_type_Private"><br><br>
-        <label>Work Type - Self-employed:</label><input type="number" name="work_type_Self-employed"><br><br>
-        <label>Work Type - Children:</label><input type="number" name="work_type_children"><br><br>
+            <label>Heart Disease:</label>
+            <select name="heart_disease">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select><br>
+        </div>
 
-        <!-- Residence -->
-        <label>Residence Type - Urban:</label><input type="number" name="Residence_type_Urban"><br><br>
+        <div class="form-section">
+            <h3>Demographics</h3>
+            <label>Gender - Male:</label>
+            <select name="gender_Male">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select><br>
 
-        <!-- Smoking Status -->
-        <label>Smoking - Formerly smoked:</label><input type="number" name="smoking_status_formerly smoked"><br><br>
-        <label>Smoking - Never smoked:</label><input type="number" name="smoking_status_never smoked"><br><br>
-        <label>Smoking - Smokes:</label><input type="number" name="smoking_status_smokes"><br><br>
+            <label>Gender - Other:</label>
+            <select name="gender_Other">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select><br>
 
-        <input type="submit" value="Predict Stroke Risk">
+            <label>Ever Married:</label>
+            <select name="ever_married_Yes">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select><br>
+
+            <label>Residence - Urban:</label>
+            <select name="Residence_type_Urban">
+                <option value="1">Urban</option>
+                <option value="0">Rural</option>
+            </select><br>
+        </div>
+
+        <div class="form-section">
+            <h3>Work & Lifestyle</h3>
+            <label>Work - Never Worked:</label><select name="work_type_Never_worked"><option value="0">No</option><option value="1">Yes</option></select><br>
+            <label>Work - Private:</label><select name="work_type_Private"><option value="1">Yes</option><option value="0">No</option></select><br>
+            <label>Work - Self-employed:</label><select name="work_type_Self-employed"><option value="0">No</option><option value="1">Yes</option></select><br>
+            <label>Work - Children:</label><select name="work_type_children"><option value="0">No</option><option value="1">Yes</option></select><br>
+
+            <label>Smoking - Formerly Smoked:</label><select name="smoking_status_formerly smoked"><option value="0">No</option><option value="1">Yes</option></select><br>
+            <label>Smoking - Never Smoked:</label><select name="smoking_status_never smoked"><option value="1">Yes</option><option value="0">No</option></select><br>
+            <label>Smoking - Smokes:</label><select name="smoking_status_smokes"><option value="0">No</option><option value="1">Yes</option></select><br>
+        </div>
+
+        <input type="submit" class="predict-button" value="Predict Stroke Risk">
     </form>
 
     {% if prediction %}
-        <h3>Prediction Result: {{ prediction }}</h3>
+        <div class="result">Prediction Result: {{ prediction }}</div>
     {% endif %}
 </body>
 </html>
