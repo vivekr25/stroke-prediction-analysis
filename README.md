@@ -2,6 +2,11 @@
 
 A machine learning project to predict the likelihood of stroke using health data. This project showcases end-to-end data science skills from **EDA** to **deployment**, with a focus on real-world healthcare applications.
 
+🌐 Live App
+
+🎯 Try it now: Stroke Prediction Web App
+
+Enter health information such as age, glucose level, BMI, etc., and get an instant stroke risk prediction using a machine learning model trained on real data.
 ---
 
 ## 📚 Table of Contents
@@ -138,9 +143,19 @@ joblib.dump(scaler, 'models/standard_scaler.joblib')
 
 🚀 Deployment 
 
-### 🌐 Live Demo
+## 🚀 Live Demo
 
-👉 [Try the Stroke Predictor App](https://stroke-prediction-analysis.onrender.com/)
+The stroke prediction web app is live and can be accessed here:  
+🔗 [https://stroke-prediction-analysis.onrender.com](https://stroke-prediction-analysis.onrender.com)
+
+### 🛠️ How to Use
+1. Go to the [Live App](https://stroke-prediction-analysis.onrender.com/)
+2. Enter health details like age, BMI, glucose levels, etc.
+3. Click **"Predict Stroke Risk"**
+4. See the result: 🚨 "Stroke Risk" or 😊 "No Stroke"
+
+⚙️ **Custom Threshold**
+Lowered the prediction threshold to `0.3` (from default `0.5`) to **prioritize recall** and catch more true stroke cases — important in healthcare where false negatives are riskier than false positives.
 
 project/
 │
