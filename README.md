@@ -136,12 +136,11 @@ Final models were saved using `joblib`:
 joblib.dump(rf_smote, 'models/random_forest_stroke_model.joblib')
 joblib.dump(scaler, 'models/standard_scaler.joblib')
 
-🚀 Deployment (upcoming)
+🚀 Deployment 
 
-A web application using Flask:
-	•	Accepts user input (health parameters)
-	•	Predicts stroke probability in real time
-	•	Will be hosted on Render or Azure
+### 🌐 Live Demo
+
+👉 [Try the Stroke Predictor App](https://stroke-prediction-analysis.onrender.com/)
 
 project/
 │
